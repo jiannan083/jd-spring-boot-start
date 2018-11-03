@@ -1,0 +1,214 @@
+<script>
+        var oLoading = true;
+        var treatTrend_option;
+        window.onresize = function () {
+            treatTrend_option.resize();  //图表自适应大小
+        }
+
+        function index_ajax_option(ec) {
+            treatTrend_option = ec.init(document.getElementById('threadtrend'), "macarons");
+
+            if (oLoading) {
+
+                treatTrend_option.showLoading({
+                    text: '正在加载数据中...',
+                    effectOption: {backgroundColor: '#fff'},
+                    textStyle: {
+                        fontSize: 15,
+                        color: '#999'
+                    }
+                });
+            }
+            getIndex("/goodsInfo/get/");
+
+            function getIndex(URL) {
+                $.ajax({
+                    dataType: "json",
+                    type: "GET",
+                    url: URL,
+                    async: true,  //ajax异步true
+                    success: function (json) {
+                        var date_arr = [];
+                        if (json.length != 0) {
+                            for (var i = 0; i < json.length; i++) {
+                                date_arr.push(json[i].createTime);
+                            }
+                            // alert(date_arr)
+
+                            configuration_option.xAxis[0].data = date_arr;
+                        }
+                    }
+                })
+            }
+        }
+
+        require.config({
+            paths: {
+                echarts: '/js/echarts'
+            }
+        });
+        // 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line',
+                'echarts/chart/map',
+                'echarts/chart/pie'
+            ],
+            index_ajax_option
+        );
+    </script>
+
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <!DOCTYPE html>
+    <html>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>goodsInfo</title>
+        <script src="/js/echarts.min.js"></script>
+        <script src="/js/jquery-3.3.1.min.js"></script>
+        <!--<script type="text/javascript">-->
+        <!--// 路径配置,为模块加载器配置echarts的路径-->
+        <!--echarts.config({-->
+        <!--paths: {-->
+        <!--echarts: '/js'-->
+        <!--}-->
+        <!--});-->
+
+        <!--// 使用-->
+        <!--echarts(-->
+        <!--[-->
+        <!--'echarts', 'echarts/chart/line'-->
+        <!--],-->
+        <!--function (ec) {-->
+        <!--// 基于准备好的dom，初始化echarts图表-->
+        <!--var myChart = ec.init(document.getElementById('goods'));-->
+        <!--var option = {-->
+        <!--tooltip: {-->
+        <!--show: true-->
+        <!--},-->
+        <!--legend: {-->
+        <!--data: ['销量']-->
+        <!--},-->
+        <!--xAxis: [-->
+        <!--{-->
+        <!--type: 'category',-->
+        <!--data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]-->
+        <!--}-->
+        <!--],-->
+        <!--yAxis: [-->
+        <!--{-->
+        <!--type: 'value'-->
+        <!--}-->
+        <!--],-->
+        <!--series: [-->
+        <!--{-->
+        <!--"name": "销量",-->
+        <!--"type": "bar",-->
+        <!--"data": [5, 20, 40, 10, 10, 20]-->
+        <!--}-->
+        <!--]-->
+        <!--};-->
+        <!--// 为echarts对象加载数据-->
+        <!--myChart.setOption(option);-->
+        <!--}-->
+        <!--);-->
+        <!--</script>-->
+    </head>
+    <body>
+    <div>
+        <div id="goods" style="height: 351px;text-align: center"></div>
+        <script type="text/javascript">
+            var myChart = echarts.init(document.getElementById('goods'));
+            // 显示标题，图例和空的坐标轴
+            myChart.setOption({
+                title: {
+                    text: 'goods价格示例'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['价格']
+                },
+                xAxis: {
+                    boundaryGap: false,
+                    data: []
+                },
+                yAxis: {},
+                series: [{
+                    name: '价格',
+                    type: 'line',
+                    data: []
+                }]
+            });
+
+            // 异步加载数据
+            $.getJSON('/goodsInfo/get', function (data) {
+                // alert(data)
+                var x_arr = [];
+                var y_arr = [];
+                // alert(data.length)
+                for (var i = 0; i < data.length; i++) {
+                    // alert(data[i].createTime)
+                    x_arr.push(data[i].createTime);
+                    y_arr.push(data[i].plusPrice);
+                }
+                // 填入数据
+                myChart.setOption({
+                    xAxis: {
+                        data: x_arr
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        name: '销量',
+                        data: y_arr
+                    }]
+                });
+            });
+        </script>
+        <!--<script type="text/javascript">-->
+        <!--// 基于准备好的dom，初始化echarts实例-->
+        <!--var myChart = echarts.init(document.getElementById('goods'));-->
+        <!--// 指定图表的配置项和数据-->
+        <!--var option = {-->
+        <!--title: {-->
+        <!--text: 'ECharts 入门示例'-->
+        <!--},-->
+        <!--tooltip: {},-->
+        <!--legend: {-->
+        <!--data: ['销量', '销量1']-->
+        <!--},-->
+        <!--xAxis: {-->
+        <!--data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]-->
+        <!--},-->
+        <!--yAxis: {},-->
+        <!--series: [{-->
+        <!--name: '销量',-->
+        <!--type: 'line',-->
+        <!--data: [5, 20, 36, 10, 10, 20]-->
+        <!--}, {-->
+        <!--name: '销量1',-->
+        <!--type: 'line',-->
+        <!--data: [55, 20, 63, 40, 6, 20]-->
+        <!--}]-->
+        <!--};-->
+        <!--// 使用刚指定的配置项和数据显示图表。-->
+        <!--myChart.setOption(option);-->
+        <!--</script>-->
+    </div>
+    </body>
+    </html>
+
+     // fontSize: 20,
+                            // 使用函数模板，函数参数分别为刻度数值（类目），刻度的索引
+                            // formatter: function (value, index) {
+                            //     // 格式化成月/日，只在第一个刻度显示年份
+                            //     var date = new Date(value);
+                            //     var texts = [(date.getMonth() + 1), date.getDate()];
+                            //     if (index === 0) {
+                            //         texts.unshift(date.getYear());
+                            //     }
+                            //     return texts.join('/');
+                            // }

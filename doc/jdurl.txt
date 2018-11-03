@@ -1,0 +1,25 @@
+/html/body/div[8]/div/div[2]/div[1]
+
+/html/body/div[8]/div/div[2]/div[1]/text()
+
+https://pe.3.cn/prices/mgets?skuids=5067550&source=wxsq&callback=cbaf35b06713cdb74ee8462ab6a8b14954&g_ty=ls&g_tk=5381
+
+https://p.3.cn/prices/mgets?callback=jQuery9734926&type=1&area=1&pdtk=pduid=14930020970791835891856&pdpin=jd_6738608ee8eed&pdbp=0&skuIds=J_11476104681&source=item-pc
+https://p.3.cn/prices/mgets?callback=jQuery9734926&type=1&area=1&skuIds=J_11476104681&source=item-pc
+
+https://yx.3.cn/service/info.action?ids=5067550&callback=cb3ade386928a5c5ed974c7f33821310f2&g_ty=ls&g_tk=5381
+
+# 优惠券
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?platform=3&cid=13594&sku=5067550&popId=8888
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?platform=3&cid=16840&sku=17757120747&popId=655868
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?platform=3&cid=12010&sku=1681691&popId=8888  // 袜子
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?platform=3&cid=15928&sku=226531&popId=8888  //滴露
+
+platform 平台
+cid
+popId
+sku  商品id
+
+
+https://wq.jd.com/commodity/promo/get?skuid=8237135,5067550&callback=cb2a9504e0003d709ef93aae2a2e3fb6be&g_ty=ls&g_tk=5381
+

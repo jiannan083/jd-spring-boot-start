@@ -1,0 +1,35 @@
+名称
+原始地址
+原始地址返回数据
+简化地址
+简化地址返回数据
+
+
+good_base_info商品信息
+https://yx.3.cn/service/info.action?ids=5519077&callback=cb9ce1e61031e7b79a1b27b4f483b27821&g_ty=ls&g_tk=5381
+cb9ce1e61031e7b79a1b27b4f483b27821({"5519077":{"spec":"","imagePath":"jfs/t14758/231/280440543/243943/1ca66950/5a28a0caN99cca9e0.jpg","color":"葱香8片","name":"粮全其美 手抓饼 葱香800g（8片 葱油饼 早餐食材）","size":""}})
+https://yx.3.cn/service/info.action?ids=5519077
+{"5519077":{"spec":"","imagePath":"jfs/t14758/231/280440543/243943/1ca66950/5a28a0caN99cca9e0.jpg","color":"葱香8片","size":"","name":"粮全其美 手抓饼 葱香800g（8片 葱油饼 早餐食材）"}}
+
+
+good_price价格
+https://pe.3.cn/prices/mgets?skuids=5519077&source=wxsq&callback=cb7c5616195a64b8c68a06394b66c6029f&g_ty=ls&g_tk=5381
+cb7c5616195a64b8c68a06394b66c6029f([{"op":"18.90","m":"30.00","id":"J_5519077","p":"18.90","up":"tpp","tpp":"17.50"}]);
+https://pe.3.cn/prices/mgets?skuids=5519077
+[{"op":"18.90","m":"30.00","id":"J_5519077","p":"18.90","up":"tpp","tpp":"17.50"}]
+
+
+good_coupon优惠券
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?callback=getCouponListCBA&platform=3&cid=13594&sku=5519077&popId=8888&t=0.9352982938627425
+try{getCouponListCBA({"ret":0,"msg":"success","coupons":[{"name":"仅可购买部分海鲜水产商品","key":"743b8eae3bd649d1b5676130e11f8102","timeDesc":"有效期2018-10-09至2018-10-15","hourcoupon":1,"couponType":1,"quota":199,"roleId":14605820,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"6cc3d387ee2440c6bc76671210c0d379","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":159,"roleId":14614495,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"fba9f5b3c3614c3199fe8a4b069f2427","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":259,"roleId":14614496,"discount":100,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营部分商品","key":"e6951016018d45cdb2a504665f8cabcb","timeDesc":"有效期2018-10-11至2018-10-15","hourcoupon":1,"couponType":1,"quota":169,"roleId":14809765,"discount":60,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营肉禽冷冻部分商品","key":"17f088bf56294be3938359ae9033f55b","timeDesc":"有效期2018-10-01至2018-10-15","hourcoupon":1,"couponType":1,"quota":198,"roleId":14640168,"discount":40,"couponstyle":0,"discountdesc":{}}],"use_coupons":[],"sku_info":{"sku":"5519077","useJing":"1","useDong":"1","global":"0","jdPrice":"0","limitCouponType":[],"limitCouponDesc":""}});}catch(e){}
+https://wq.jd.com/mjgj/fans/queryusegetcoupon?platform=3&cid=13594&sku=5519077&popId=8888
+{"ret":0,"msg":"success","coupons":[{"name":"仅可购买部分海鲜水产商品","key":"743b8eae3bd649d1b5676130e11f8102","timeDesc":"有效期2018-10-09至2018-10-15","hourcoupon":1,"couponType":1,"quota":199,"roleId":14605820,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"6cc3d387ee2440c6bc76671210c0d379","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":159,"roleId":14614495,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"fba9f5b3c3614c3199fe8a4b069f2427","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":259,"roleId":14614496,"discount":100,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营部分商品","key":"e6951016018d45cdb2a504665f8cabcb","timeDesc":"有效期2018-10-11至2018-10-15","hourcoupon":1,"couponType":1,"quota":169,"roleId":14809765,"discount":60,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营肉禽冷冻部分商品","key":"17f088bf56294be3938359ae9033f55b","timeDesc":"有效期2018-10-01至2018-10-15","hourcoupon":1,"couponType":1,"quota":198,"roleId":14640168,"discount":40,"couponstyle":0,"discountdesc":{}}],"use_coupons":[],"sku_info":{"sku":"5519077","useJing":"1","useDong":"1","global":"0","jdPrice":"0","limitCouponType":[] ,"limitCouponDesc":""}}
+
+
+
+
+
+
+
+
+

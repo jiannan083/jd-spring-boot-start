@@ -1,0 +1,58 @@
+[{
+	"name": "仅可购买七匹狼内衣自营部分商品",
+	"key": "6a14588b5acf4ad589e11a43eab8b55b",
+	"timeDesc": "有效期至2018-10-26",
+	"hourcoupon": 1,
+	"couponType": 1,
+	"quota": 55,
+	"roleId": 14563318,
+	"discount": 5,
+	"couponstyle": 0,
+	"discountdesc": {}
+}, {
+	"name": "仅可购买服饰类部分商品",
+	"key": "af96c2da5bed49d69a2485e973c268de",
+	"timeDesc": "有效期2018-10-01至2018-10-31",
+	"hourcoupon": 1,
+	"couponType": 1,
+	"quota": 300,
+	"roleId": 14556662,
+	"discount": 30,
+	"couponstyle": 3,
+	"discountdesc": {
+		"high": "120",
+		"info": [{
+			"discount": "0.9",
+			"quota": "300"
+		}]
+	}
+}]
+
+----
+
+[{
+	"name": "仅可购买跨店铺活动商品",
+	"key": "d766cb1802714d7ca0867bedd2c19fb8",
+	"timeDesc": "有效期2018-10-08至2018-10-14",
+	"hourcoupon": 1,
+	"couponType": 1,
+	"quota": 129,
+	"roleId": 14627756,
+	"discount": 30,
+	"couponstyle": 0,
+	"discountdesc": {}
+}, {
+	"name": "仅可购买部分海鲜水产商品",
+	"key": "bda1a2677db34d55890b0e17f9c5c25d",
+	"timeDesc": "有效期2018-10-09至2018-10-15",
+	"hourcoupon": 1,
+	"couponType": 1,
+	"quota": 129,
+	"roleId": 14605818,
+	"discount": 30,
+	"couponstyle": 0,
+	"discountdesc": {}
+}]
+
+----
+

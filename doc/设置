@@ -1,0 +1,22 @@
+Springboot项目修改html后不需要重启---springboot项目的热部署
+2018年04月10日 09:08:55 Connie1451 阅读数：8544 标签： SpringBoot热部署  更多
+个人分类： SpringBoot
+一、spring-boot-devtools
+　　在pom中直接引入依赖
+
+<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+</dependency>
+　　设置以下两项（第一项如已设置直接设置第二项）
+
+
+
+　   1） “File” -> “Settings” -> “Build,Execution,Deplyment” -> “Compiler”，选中打勾 “Build project automatically” 。
+
+
+
+　2） 组合键：“Shift+Ctrl+Alt+/” ，选择 “Registry” ，选中打勾 “compiler.automake.allow.when.app.running”
+
+
