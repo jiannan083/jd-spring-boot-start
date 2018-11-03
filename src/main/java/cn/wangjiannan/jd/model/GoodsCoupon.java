@@ -2,8 +2,6 @@ package cn.wangjiannan.jd.model;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class GoodsCoupon {
     private Long id;
@@ -31,9 +29,5 @@ public class GoodsCoupon {
     private String name;
 
     private String timeDesc;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }

@@ -3,8 +3,6 @@ package cn.wangjiannan.jd.model;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 @Builder
 public class GoodsBaseInfo {
@@ -23,9 +21,5 @@ public class GoodsBaseInfo {
     private String imagePath;
 
     private String spec;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }

@@ -3,8 +3,6 @@ package cn.wangjiannan.jd.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class GoodsPrice {
     private Long id;
@@ -19,9 +17,5 @@ public class GoodsPrice {
 
     @JSONField(name = "tpp")
     private Double plusPrice;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }
