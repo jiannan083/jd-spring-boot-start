@@ -1,5 +1,6 @@
 package cn.wangjiannan.jd.crawler;
 
+import cn.wangjiannan.jd.model.Goods;
 import cn.wangjiannan.jd.model.GoodsBaseInfo;
 import cn.wangjiannan.jd.model.GoodsCoupon;
 import cn.wangjiannan.jd.model.GoodsPrice;
@@ -19,9 +20,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 京东抓取类.
@@ -32,13 +31,13 @@ import java.util.Map;
 public class Crawler {
     private static String HTML_URL = "https://item.m.jd.com/product/%s.html";
 
-    public Map<String, String> crawlGoods(String skuid) {
+    public Goods crawlGoods(String skuid) {
         String htmlPage;
         try {
             htmlPage = Jsoup.connect(String.format(HTML_URL, skuid)).get().toString();
         } catch (IOException e) {
-            log.error("", e);
-            throw new RuntimeException("");
+            log.error("解析xml失败", e);
+            throw new RuntimeException("解析xml失败");
         }
         Document document = Jsoup.parse(htmlPage);
         Elements elements = document.select("script");
@@ -67,11 +66,13 @@ public class Crawler {
         JSONArray jsonArray = JSON.parseArray(jsonObject.getString("category"));
         String category = jsonArray.get(2).toString();
 
-        Map<String, String> goodsMap = new HashMap<>();
-        goodsMap.put("skuid", skuId);
-        goodsMap.put("name", skuName);
-        goodsMap.put("cid", category);
-        return goodsMap;
+        return Goods.builder().skuid(skuId).name(skuName).cid(category).build();
+
+        //Map<String, String> goodsMap = new HashMap<>();
+        //goodsMap.put("skuid", skuId);
+        //goodsMap.put("name", skuName);
+        //goodsMap.put("cid", category);
+        //return goodsMap;
     }
 
     //@Override
