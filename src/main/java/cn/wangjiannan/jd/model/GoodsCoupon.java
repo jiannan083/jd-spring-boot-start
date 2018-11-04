@@ -4,8 +4,6 @@ import lombok.Data;
 
 @Data
 public class GoodsCoupon {
-    private Long id;
-
     private Long goodsInfoId;
 
     private String couponType;

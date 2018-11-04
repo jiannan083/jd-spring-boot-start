@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class GoodsPrice {
-    private Long id;
-
     private Long goodsInfoId;
 
     @JSONField(name = "op")

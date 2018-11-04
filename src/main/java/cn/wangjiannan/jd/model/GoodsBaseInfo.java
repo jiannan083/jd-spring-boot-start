@@ -1,13 +1,9 @@
 package cn.wangjiannan.jd.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class GoodsBaseInfo {
-    private Long id;
-
     private Long goodsInfoId;
 
     private String skuid;
