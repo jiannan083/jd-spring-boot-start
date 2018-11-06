@@ -1,7 +1,8 @@
 package cn.wangjiannan.jd.autoconfigure;
 
 import cn.wangjiannan.jd.crawler.Crawler;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,9 +24,8 @@ import javax.annotation.PostConstruct;
                 value = "enabled", //开启
                 matchIfMissing = true //缺失检查
         )
-@Slf4j
 public class JdAutoConfiguration {
-
+    private static final Logger log = LoggerFactory.getLogger(JdAutoConfiguration.class);
     private final JdProperties properties;
 
     public JdAutoConfiguration(JdProperties properties) {

@@ -10,11 +10,12 @@ import cn.wangjiannan.util.HttpUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -27,8 +28,9 @@ import java.util.List;
  *
  * @author wangjiannan
  */
-@Slf4j
 public class Crawler {
+    private static final Logger log = LoggerFactory.getLogger(Crawler.class);
+
     private static final String HTML_URL = "https://item.m.jd.com/product/%s.html";
     private static final String BASE_INFO_URL = "https://yx.3.cn/service/info.action?ids=%s";
     private static final String PRICE_URL = "https://pe.3.cn/prices/mgets?skuids=%s";
@@ -77,8 +79,7 @@ public class Crawler {
         JSONArray jsonArray = JSON.parseArray(jsonObject.getString("category"));
         String category = jsonArray.get(2).toString();
 
-        return Goods.builder().skuid(skuId).name(skuName).cid(category).build();
-
+        return new Goods(skuid, skuName, category);
         //Map<String, String> goodsMap = new HashMap<>();
         //goodsMap.put("skuid", skuId);
         //goodsMap.put("name", skuName);

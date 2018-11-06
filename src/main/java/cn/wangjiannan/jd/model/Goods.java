@@ -1,15 +1,60 @@
 package cn.wangjiannan.jd.model;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
+/**
+ * 商品实体.
+ *
+ * @author wangjiannan
+ */
 public class Goods {
-
+    /**
+     * 商品id.
+     */
     private String skuid;
-
+    /**
+     * 商品名称.
+     */
     private String name;
-
+    /**
+     * 类别id.
+     */
     private String cid;
+
+    public Goods(String skuid, String name, String cid) {
+        this.skuid = skuid;
+        this.name = name;
+        this.cid = cid;
+    }
+
+    public String getSkuid() {
+        return skuid;
+    }
+
+    public void setSkuid(String skuid) {
+        this.skuid = skuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "skuid='" + skuid + '\'' +
+                ", name='" + name + '\'' +
+                ", cid='" + cid + '\'' +
+                '}';
+    }
 }

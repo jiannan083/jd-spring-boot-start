@@ -1,6 +1,5 @@
 package cn.wangjiannan.jd.autoconfigure;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -8,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author wangjiannan
  */
-@Data
 @ConfigurationProperties(prefix = JdProperties.JD_PREFIX)
 public class JdProperties {
     public static final String JD_PREFIX = "jd";
