@@ -100,6 +100,10 @@ public class OkhttpUtils {
         return executePost(url, formMap, null, tclass);
     }
 
+    public static String executePost(String url, Map<String, String> formMap) {
+        return executePost(url, formMap, String.class);
+    }
+
     /**
      * 执行post requestbody.
      *
@@ -129,6 +133,11 @@ public class OkhttpUtils {
     public static <T> T executePost(String url, String requestBody, Class<T> tclass) {
         return executePost(url, requestBody, null, tclass);
     }
+
+    public static String executePost(String url, String requestBody) {
+        return executePost(url, requestBody, String.class);
+    }
+
 
     private static <T> TypeReference<T> convert2TypeReference(Class<T> tclass) {
         return new TypeReference<T>() {
@@ -161,7 +170,7 @@ public class OkhttpUtils {
                     if (okHttpWapper.getTypeReference().getType() == String.class) {
                         okHttpWapper.setResponse(response.body().string());
                     } else {
-                        okHttpWapper.setResponse(mapper.readValue(response.body().byteStream(), okHttpWapper.getTypeReference()));
+                        okHttpWapper.setResponse(mapper.readValue(response.body().string(), okHttpWapper.getTypeReference()));
                     }
                     countDownLatch.countDown();
                 }

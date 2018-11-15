@@ -6,7 +6,7 @@
 
     <groupId>cn.wangjiannan</groupId>
     <artifactId>jd-spring-boot-starter</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -84,15 +84,6 @@
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
             <scope>test</scope>
-        </dependency>
-        <!-- http -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
         </dependency>
     </dependencies>
 

@@ -14,12 +14,10 @@ public class CrawlerTest {
     @Test
     public void test() throws IOException {
         Crawler crawler = new Crawler();
-        //Goods goods= crawler.crawlerGoodsHtml("5067550");
-        //System.out.println(goods.toString());
-
-        //String result = Jsoup.connect(String.format("https://yx.3.cn/service/info.action?ids=%s", "5067550")).get().toString();
-        //        //System.out.println(result);
-        crawler.processGoodsBaseInfo("5067550");
+        System.out.println(crawler.processGoodsBaseInfo("5067550"));
+        System.out.println(crawler.processGoodsPrice("5067550"));
+        System.out.println(crawler.processGoodsPromotion("5067550"));
+        System.out.println(crawler.processGoodsCoupon("5067550"));
     }
 
     @Test
