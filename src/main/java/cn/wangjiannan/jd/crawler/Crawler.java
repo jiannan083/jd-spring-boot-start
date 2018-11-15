@@ -7,6 +7,7 @@ import cn.wangjiannan.jd.model.GoodsPrice;
 import cn.wangjiannan.jd.model.GoodsPromotion;
 import cn.wangjiannan.jd.model.GoodsPromotionResult;
 import cn.wangjiannan.util.HttpUtils;
+import cn.wangjiannan.util.OkhttpUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -45,14 +46,13 @@ public class Crawler {
      * @return {@link Goods}
      */
     public Goods crawlerGoodsHtml(String skuid) {
-        String htmlPage;
+        Document document = null;
         try {
-            htmlPage = Jsoup.connect(String.format(HTML_URL, skuid)).get().toString();
+            document = Jsoup.connect(String.format(HTML_URL, skuid)).get();
         } catch (IOException e) {
             log.error("解析xml失败", e);
             throw new RuntimeException("解析xml失败");
         }
-        Document document = Jsoup.parse(htmlPage);
         Elements elements = document.select("script");
         String windowItemOnly = "";
         for (Element ele : elements) {
@@ -148,7 +148,10 @@ public class Crawler {
      * @return {@link GoodsBaseInfo}
      */
     public GoodsBaseInfo processGoodsBaseInfo(String skuid) {
-        String infoContent = StringUtils.trimAllWhitespace(HttpUtils.getContent(String.format(BASE_INFO_URL, skuid)));
+        //String infoContent = HttpUtils.getContent(String.format(BASE_INFO_URL, skuid));
+        String infoContent = OkhttpUtils.executeGet(String.format(BASE_INFO_URL, skuid));
+        log.debug("详情爬取返回={}", infoContent);
+        infoContent = StringUtils.trimAllWhitespace(infoContent);
         log.debug("详情爬取返回={}", infoContent);
         // {"5837306":{"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}}
         infoContent = infoContent.substring(infoContent.indexOf(":") + 1, infoContent.length() - 1);

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * OkhttpUtils.
@@ -62,6 +63,10 @@ public class OkhttpUtils {
 
     public static <T> T executeGet(String url, Class<T> tclass) {
         return executeGet(url, null, tclass);
+    }
+
+    public static String executeGet(String url) {
+        return executeGet(url, String.class);
     }
 
     /**
@@ -140,6 +145,8 @@ public class OkhttpUtils {
         if (okHttpWappers == null || okHttpWappers.length == 0) {
             return;
         }
+        CountDownLatch countDownLatch = new CountDownLatch(okHttpWappers.length);
+
         OkHttpClient okHttpClient = OkHttpClientBuilder.getInstance().getOkHttpClient();
         for (OkHttpWapper okHttpWapper : okHttpWappers) {
             okHttpClient.newCall(okHttpWapper.getRequest()).enqueue(new Callback() {
@@ -150,9 +157,29 @@ public class OkhttpUtils {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    okHttpWapper.setResponse(mapper.readValue(response.body().byteStream(), okHttpWapper.getTypeReference()));
+                    if (okHttpWapper.getTypeReference().getType() == String.class) {
+                        okHttpWapper.setResponse(response.body().string());
+                    } else {
+                        okHttpWapper.setResponse(mapper.readValue(response.body().byteStream(), okHttpWapper.getTypeReference()));
+                    }
                 }
             });
+            countDownLatch.countDown();
+            //try {
+            //    Response response = okHttpClient.newCall(okHttpWapper.getRequest()).execute();
+            //    if (okHttpWapper.getTypeReference().getType() == String.class) {
+            //        okHttpWapper.setResponse(response.body().string());
+            //    } else {
+            //        okHttpWapper.setResponse(mapper.readValue(response.body().byteStream(), okHttpWapper.getTypeReference()));
+            //    }
+            //} catch (IOException e) {
+            //    e.printStackTrace();
+            //}
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
