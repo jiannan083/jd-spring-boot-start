@@ -266,11 +266,16 @@ public class Crawler {
      */
     public List<GoodsCoupon> processGoodsCoupon(String platform, String cid, String skuid, String popId) {
         String couponContent = StringUtils.trimAllWhitespace(HttpUtils.getContent(String.format(COUPON_URL, platform, cid, skuid, popId)));
-        log.debug("优惠券爬取返回={}", couponContent);
+        log.info("优惠券爬取返回={}", couponContent);
+
         // {"ret":0,"msg":"success","coupons":[{"name":"仅可购买生鲜部分商品","key":"6cc3d387ee2440c6bc76671210c0d379","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":159,"roleId":14614495,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"fba9f5b3c3614c3199fe8a4b069f2427","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":259,"roleId":14614496,"discount":100,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营肉禽冷冻部分商品","key":"17f088bf56294be3938359ae9033f55b","timeDesc":"有效期2018-10-01至2018-10-15","hourcoupon":1,"couponType":1,"quota":198,"roleId":14640168,"discount":40,"couponstyle":0,"discountdesc":{}}],"use_coupons":[],"sku_info":{"sku":"4155087","useJing":"1","useDong":"1","global":"0","jdPrice":"0","limitCouponType":[],"limitCouponDesc":""}}
         JSONObject couponContentJsonObject = JSON.parseObject(couponContent);
+        if (couponContentJsonObject.getInteger("ret") != 0) {
+            log.error("优惠券爬取返回结果错误");
+            return null;
+        }
         couponContent = couponContentJsonObject.getString("coupons");
-        log.info("优惠券爬取返回={}", couponContent);
+        //log.debug("优惠券爬取返回={}", couponContent);
         // [{"couponType":1,"roleId":14614495,"quota":159,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":50,"discountdesc":{},"couponstyle":0,"key":"6cc3d387ee2440c6bc76671210c0d379","hourcoupon":1},{"couponType":1,"roleId":14614496,"quota":259,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":100,"discountdesc":{},"couponstyle":0,"key":"fba9f5b3c3614c3199fe8a4b069f2427","hourcoupon":1},{"couponType":1,"roleId":14640168,"quota":198,"name":"仅可购买生鲜自营肉禽冷冻部分商品","timeDesc":"有效期2018-10-01至2018-10-15","discount":40,"discountdesc":{},"couponstyle":0,"key":"17f088bf56294be3938359ae9033f55b","hourcoupon":1}]
         return JSON.parseArray(couponContent, GoodsCoupon.class);
     }
