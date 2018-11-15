@@ -152,7 +152,8 @@ public class OkhttpUtils {
             okHttpClient.newCall(okHttpWapper.getRequest()).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    log.error("", e);
+                    log.error("okhttp调用失败", e);
+                    countDownLatch.countDown();
                 }
 
                 @Override
@@ -162,9 +163,9 @@ public class OkhttpUtils {
                     } else {
                         okHttpWapper.setResponse(mapper.readValue(response.body().byteStream(), okHttpWapper.getTypeReference()));
                     }
+                    countDownLatch.countDown();
                 }
             });
-            countDownLatch.countDown();
             //try {
             //    Response response = okHttpClient.newCall(okHttpWapper.getRequest()).execute();
             //    if (okHttpWapper.getTypeReference().getType() == String.class) {
