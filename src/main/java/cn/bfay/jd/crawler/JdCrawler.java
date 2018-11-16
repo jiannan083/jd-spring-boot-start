@@ -1,6 +1,6 @@
 package cn.bfay.jd.crawler;
 
-import cn.bfay.commons.okhttp.OkhttpUtils;
+import cn.bfay.commons.okhttp.OkHttpUtils;
 import cn.bfay.jd.model.GoodsPromotionResult;
 import cn.bfay.jd.model.JdGoods;
 import cn.bfay.jd.model.JdGoodsBaseInfo;
@@ -45,7 +45,7 @@ public class JdCrawler {
      * @return {@link JdGoods}
      */
     public JdGoods crawlerGoodsHtml(String skuid) {
-        Document document = null;
+        Document document;
         try {
             document = Jsoup.connect(String.format(HTML_URL, skuid)).get();
         } catch (IOException e) {
@@ -88,7 +88,7 @@ public class JdCrawler {
      * @return {@link JdGoodsBaseInfo}
      */
     public JdGoodsBaseInfo processGoodsBaseInfo(String skuid) {
-        String infoContent = StringUtils.trimAllWhitespace(OkhttpUtils.executeGet(String.format(BASE_INFO_URL, skuid)));
+        String infoContent = StringUtils.trimAllWhitespace(OkHttpUtils.executeGet(String.format(BASE_INFO_URL, skuid), String.class));
         // {"5837306":{"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}}
         infoContent = infoContent.substring(infoContent.indexOf(":") + 1, infoContent.length() - 1);
         // {"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}
@@ -103,7 +103,7 @@ public class JdCrawler {
      * @return {@link JdGoodsPrice}
      */
     public JdGoodsPrice processGoodsPrice(String skuid) {
-        String priceContent = StringUtils.trimAllWhitespace(OkhttpUtils.executeGet(String.format(PRICE_URL, skuid)));
+        String priceContent = StringUtils.trimAllWhitespace(OkHttpUtils.executeGet(String.format(PRICE_URL, skuid), String.class));
         // [{"op":"179.00","m":"179.00","id":"J_17757120747","p":"79.00"}]
         priceContent = priceContent.replace("\"id\"", "\"J_id\"");
         // [{"op":"179.00","m":"179.00","J_id":"J_17757120747","p":"79.00"}]
@@ -122,7 +122,7 @@ public class JdCrawler {
      * @return {@link JdGoodsPromotion}
      */
     public List<JdGoodsPromotion> processGoodsPromotion(String skuid) {
-        String promotionContent = StringUtils.trimAllWhitespace(OkhttpUtils.executeGet(String.format(PROMOTION_URL, skuid)));
+        String promotionContent = StringUtils.trimAllWhitespace(OkHttpUtils.executeGet(String.format(PROMOTION_URL, skuid), String.class));
         // callback({"errcode":"0","errmsg":"","data":[{"id":"2384709","pis":[{"d":"1539705599","subextinfo":"{\"extType\":15,\"subExtType\":23,\"subRuleList\":[{\"needNum\":\"2\",\"rebate\":\"8\",\"subRuleList\":[]},{\"needNum\":\"3\",\"rebate\":\"7\",\"subRuleList\":[]}]}","19":"满2件，总价打8折；满3件，总价打7折","adurl":"http://sale.jd.com/act/BpSkJQaq657MCIiF.html","pid":"237107540_10","st":"1539014400","customtag":"{}","ori":"1"},{"d":"1541001599","subextinfo":"{\"extType\":2,\"needMoney\":\"129\",\"rewardMoney\":\"10\",\"subExtType\":9,\"subRuleList\":[]}","adurl":"https://mall.jd.com/index-1000100622.html","15":"每满129元，可减10元现金","pid":"236319400_10","st":"1538323200","customtag":"{}","ori":"1"}]}]})
         promotionContent = promotionContent.substring(promotionContent.indexOf("(") + 1, promotionContent.length() - 1);
         // {"errcode":"0","errmsg":"","data":[{"pis":[{"15":"每满129元，可减10元现金","d":"1539673572","ori":"1","st":"1538323200","adurl":"https://mall.jd.com/index-1000100622.html","pid":"236319400_10","subextinfo":"{\"extType\":2,\"needMoney\":\"129\",\"rewardMoney\":\"10\",\"subExtType\":9,\"subRuleList\":[]}","customtag":"{}"},{"19":"满2件，总价打8折；满3件，总价打7折","d":"1539673553","ori":"1","st":"1539014400","adurl":"http://sale.jd.com/act/BpSkJQaq657MCIiF.html","pid":"237107540_10","subextinfo":"{\"extType\":15,\"subExtType\":23,\"subRuleList\":[{\"needNum\":\"2\",\"rebate\":\"8\",\"subRuleList\":[]},{\"needNum\":\"3\",\"rebate\":\"7\",\"subRuleList\":[]}]}","customtag":"{}"}],"id":"2384709"}]}
@@ -192,7 +192,7 @@ public class JdCrawler {
      * @return {@link JdGoodsCoupon}
      */
     public List<JdGoodsCoupon> processGoodsCoupon(String platform, String cid, String skuid, String popId) {
-        String couponContent = StringUtils.trimAllWhitespace(OkhttpUtils.executeGet(String.format(COUPON_URL, platform, cid, skuid, popId)));
+        String couponContent = StringUtils.trimAllWhitespace(OkHttpUtils.executeGet(String.format(COUPON_URL, platform, cid, skuid, popId), String.class));
         // {"ret":0,"msg":"success","coupons":[{"name":"仅可购买生鲜部分商品","key":"6cc3d387ee2440c6bc76671210c0d379","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":159,"roleId":14614495,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"fba9f5b3c3614c3199fe8a4b069f2427","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":259,"roleId":14614496,"discount":100,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营肉禽冷冻部分商品","key":"17f088bf56294be3938359ae9033f55b","timeDesc":"有效期2018-10-01至2018-10-15","hourcoupon":1,"couponType":1,"quota":198,"roleId":14640168,"discount":40,"couponstyle":0,"discountdesc":{}}],"use_coupons":[],"sku_info":{"sku":"4155087","useJing":"1","useDong":"1","global":"0","jdPrice":"0","limitCouponType":[],"limitCouponDesc":""}}
         JSONObject couponContentJsonObject = JSON.parseObject(couponContent);
         if (couponContentJsonObject.getInteger("ret") != 0) {
