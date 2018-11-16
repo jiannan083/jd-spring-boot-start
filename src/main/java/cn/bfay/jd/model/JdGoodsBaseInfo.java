@@ -1,15 +1,11 @@
-package cn.wangjiannan.jd.model;
+package cn.bfay.jd.model;
 
 /**
  * 商品基本信息.
  *
  * @author wangjiannan
  */
-public class GoodsBaseInfo {
-    /**
-     * goodsInfoId.
-     */
-    private Long goodsInfoId;
+public class JdGoodsBaseInfo {
     /**
      * 商品id.
      */
@@ -34,14 +30,6 @@ public class GoodsBaseInfo {
      * 描述.
      */
     private String spec;
-
-    public Long getGoodsInfoId() {
-        return goodsInfoId;
-    }
-
-    public void setGoodsInfoId(Long goodsInfoId) {
-        this.goodsInfoId = goodsInfoId;
-    }
 
     public String getSkuid() {
         return skuid;
@@ -93,9 +81,8 @@ public class GoodsBaseInfo {
 
     @Override
     public String toString() {
-        return "GoodsBaseInfo{" +
-                "goodsInfoId=" + goodsInfoId +
-                ", skuid='" + skuid + '\'' +
+        return "JdGoodsBaseInfo{" +
+                "skuid='" + skuid + '\'' +
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
                 ", color='" + color + '\'' +

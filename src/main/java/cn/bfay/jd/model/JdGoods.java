@@ -1,11 +1,11 @@
-package cn.wangjiannan.jd.model;
+package cn.bfay.jd.model;
 
 /**
  * 商品实体.
  *
  * @author wangjiannan
  */
-public class Goods {
+public class JdGoods {
     /**
      * 商品id.
      */
@@ -19,7 +19,7 @@ public class Goods {
      */
     private String cid;
 
-    public Goods(String skuid, String name, String cid) {
+    public JdGoods(String skuid, String name, String cid) {
         this.skuid = skuid;
         this.name = name;
         this.cid = cid;
@@ -51,7 +51,7 @@ public class Goods {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "JdGoods{" +
                 "skuid='" + skuid + '\'' +
                 ", name='" + name + '\'' +
                 ", cid='" + cid + '\'' +

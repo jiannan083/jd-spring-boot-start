@@ -1,4 +1,4 @@
-package cn.wangjiannan.jd.model;
+package cn.bfay.jd.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -7,11 +7,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author wangjiannan
  */
-public class GoodsPrice {
-    /**
-     * goodsInfoId.
-     */
-    private Long goodsInfoId;
+public class JdGoodsPrice {
     /**
      * originalPrice.
      */
@@ -27,14 +23,6 @@ public class GoodsPrice {
      */
     @JSONField(name = "tpp")
     private Double plusPrice;
-
-    public Long getGoodsInfoId() {
-        return goodsInfoId;
-    }
-
-    public void setGoodsInfoId(Long goodsInfoId) {
-        this.goodsInfoId = goodsInfoId;
-    }
 
     public Double getOriginalPrice() {
         return originalPrice;
@@ -62,9 +50,8 @@ public class GoodsPrice {
 
     @Override
     public String toString() {
-        return "GoodsPrice{" +
-                "goodsInfoId=" + goodsInfoId +
-                ", originalPrice=" + originalPrice +
+        return "JdGoodsPrice{" +
+                "originalPrice=" + originalPrice +
                 ", normalPrice=" + normalPrice +
                 ", plusPrice=" + plusPrice +
                 '}';

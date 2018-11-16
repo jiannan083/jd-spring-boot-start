@@ -1,4 +1,4 @@
-package cn.wangjiannan.jd.autoconfigure;
+package cn.bfay.jd.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

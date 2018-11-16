@@ -1,15 +1,11 @@
-package cn.wangjiannan.jd.model;
+package cn.bfay.jd.model;
 
 /**
  * 商品优惠.
  *
  * @author wangjiannan
  */
-public class GoodsCoupon {
-    /**
-     * goodsInfoId.
-     */
-    private Long goodsInfoId;
+public class JdGoodsCoupon {
     /**
      * couponType.
      */
@@ -54,14 +50,6 @@ public class GoodsCoupon {
      * timeDesc.
      */
     private String timeDesc;
-
-    public Long getGoodsInfoId() {
-        return goodsInfoId;
-    }
-
-    public void setGoodsInfoId(Long goodsInfoId) {
-        this.goodsInfoId = goodsInfoId;
-    }
 
     public String getCouponType() {
         return couponType;
@@ -153,9 +141,8 @@ public class GoodsCoupon {
 
     @Override
     public String toString() {
-        return "GoodsCoupon{" +
-                "goodsInfoId=" + goodsInfoId +
-                ", couponType='" + couponType + '\'' +
+        return "JdGoodsCoupon{" +
+                "couponType='" + couponType + '\'' +
                 ", roleId='" + roleId + '\'' +
                 ", quota=" + quota +
                 ", discount=" + discount +

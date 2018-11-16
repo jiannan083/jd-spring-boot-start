@@ -1,4 +1,4 @@
-package cn.wangjiannan.jd.model;
+package cn.bfay.jd.model;
 
 import java.util.List;
 
@@ -55,7 +55,6 @@ public class GoodsPromotionResult {
     }
 
     public static class ResultData {
-        //private String id;
         /**
          * pis.
          */

@@ -1,6 +1,6 @@
-package cn.wangjiannan.jd.autoconfigure;
+package cn.bfay.jd.autoconfigure;
 
-import cn.wangjiannan.jd.crawler.Crawler;
+import cn.bfay.jd.crawler.JdCrawler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -49,10 +49,10 @@ public class JdAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean//缺失时，初始化bean并添加到SpringIoc
-    public Crawler crawler() {
-        log.info(">>>The Crawler Not Found，Execute Create New Bean.");
-        //Crawler crawler = new Crawler();
-        return new Crawler();
+    public JdCrawler jdCrawler() {
+        log.info(">>>The JdCrawler Not Found，Execute Create New Bean.");
+        //JdCrawler crawler = new JdCrawler();
+        return new JdCrawler();
     }
 
 }
