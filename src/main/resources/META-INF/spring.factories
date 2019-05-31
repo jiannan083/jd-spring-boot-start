@@ -1,3 +1,2 @@
 # Auto Configuration
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.bfay.jd.autoconfigure.JdAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.bfay.jd.autoconfigure.JdAutoConfiguration
