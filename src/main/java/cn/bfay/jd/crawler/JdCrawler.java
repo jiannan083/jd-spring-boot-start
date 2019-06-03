@@ -45,6 +45,11 @@ public class JdCrawler {
      * @return {@link JdGoods}
      */
     public JdGoods crawlerGoodsHtml(String skuid) {
+        JdGoodsPrice jdGoodsPrice = processGoodsPrice(skuid);
+        if (jdGoodsPrice.getNormalPrice() == -1) {
+            return null;
+        }
+        //
         Document document;
         try {
             document = Jsoup.connect(String.format(HTML_URL, skuid)).get();
