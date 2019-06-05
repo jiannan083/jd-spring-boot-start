@@ -16,7 +16,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -44,11 +43,11 @@ public class JdCrawler {
      * @return {@link JdGoods}
      */
     public JdGoods crawlerGoodsHtml(String skuid) {
+        JdGoodsPrice jdGoodsPrice = processGoodsPrice(skuid);
+        if (jdGoodsPrice == null || jdGoodsPrice.getNormalPrice() == null || jdGoodsPrice.getNormalPrice() == -1) {
+            return null;
+        }
         try {
-            JdGoodsPrice jdGoodsPrice = processGoodsPrice(skuid);
-            if (jdGoodsPrice == null || jdGoodsPrice.getNormalPrice() == null || jdGoodsPrice.getNormalPrice() == -1) {
-                return null;
-            }
             //
             Document document = Jsoup.connect(String.format(HTML_URL, skuid)).get();
             Elements elements = document.select("script");
@@ -66,14 +65,14 @@ public class JdCrawler {
 
             String item = JSON.parseObject(windowItemOnly).getString("item");
             JSONObject jsonObject = JSON.parseObject(item);
-            String skuId = jsonObject.getString("skuId");
-            if (!skuid.equals(skuId)) {
-                return null;
-            }
+            //String skuId = jsonObject.getString("skuId");
+            //if (!skuid.equals(skuId)) {
+            //    return null;
+            //}
             String skuName = jsonObject.getString("skuName");
-            if (StringUtils.isEmpty(skuName)) {
-                return null;
-            }
+            //if (StringUtils.isEmpty(skuName)) {
+            //    return null;
+            //}
             JSONArray jsonArray = JSON.parseArray(jsonObject.getString("category"));
             String category = jsonArray.get(2).toString();
 
@@ -93,13 +92,7 @@ public class JdCrawler {
     public JdGoodsBaseInfo processGoodsBaseInfo(String skuid) {
         try {
             String goodsBaseInfoResponse = OkHttpUtils.executeGet(String.format(BASE_INFO_URL, skuid), String.class);
-            if (goodsBaseInfoResponse == null) {
-                return null;
-            }
             String infoContent = StringUtils.trimAllWhitespace(goodsBaseInfoResponse);
-            if (StringUtils.isEmpty(infoContent)) {
-                return null;
-            }
             // {"5837306":{"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}}
             infoContent = infoContent.substring(infoContent.indexOf(":") + 1, infoContent.length() - 1);
             // {"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}
@@ -120,22 +113,12 @@ public class JdCrawler {
     public JdGoodsPrice processGoodsPrice(String skuid) {
         try {
             String goodsPriceResponse = OkHttpUtils.executeGet(String.format(PRICE_URL, skuid), String.class);
-            if (goodsPriceResponse == null) {
-                return null;
-            }
             String priceContent = StringUtils.trimAllWhitespace(goodsPriceResponse);
-            if (StringUtils.isEmpty(priceContent)) {
-                return null;
-            }
             // [{"op":"179.00","m":"179.00","id":"J_17757120747","p":"79.00"}]
             priceContent = priceContent.replace("\"id\"", "\"J_id\"");
             // [{"op":"179.00","m":"179.00","J_id":"J_17757120747","p":"79.00"}]
             List<JdGoodsPrice> jdGoodsPrices = JSON.parseArray(priceContent, JdGoodsPrice.class);
-            if (!CollectionUtils.isEmpty(jdGoodsPrices)) {
-                return jdGoodsPrices.get(0);
-            } else {
-                return null;
-            }
+            return jdGoodsPrices.get(0);
         } catch (Exception e) {
             log.error("", e);
             return null;
@@ -151,24 +134,18 @@ public class JdCrawler {
     public List<JdGoodsPromotion> processGoodsPromotion(String skuid) {
         try {
             String goodsPromotionResponse = OkHttpUtils.executeGet(String.format(PROMOTION_URL, skuid), String.class);
-            if (goodsPromotionResponse == null) {
-                return null;
-            }
             String promotionContent = StringUtils.trimAllWhitespace(goodsPromotionResponse);
-            if (StringUtils.isEmpty(promotionContent)) {
-                return null;
-            }
             // callback({"errcode":"0","errmsg":"","data":[{"id":"2384709","pis":[{"d":"1539705599","subextinfo":"{\"extType\":15,\"subExtType\":23,\"subRuleList\":[{\"needNum\":\"2\",\"rebate\":\"8\",\"subRuleList\":[]},{\"needNum\":\"3\",\"rebate\":\"7\",\"subRuleList\":[]}]}","19":"满2件，总价打8折；满3件，总价打7折","adurl":"http://sale.jd.com/act/BpSkJQaq657MCIiF.html","pid":"237107540_10","st":"1539014400","customtag":"{}","ori":"1"},{"d":"1541001599","subextinfo":"{\"extType\":2,\"needMoney\":\"129\",\"rewardMoney\":\"10\",\"subExtType\":9,\"subRuleList\":[]}","adurl":"https://mall.jd.com/index-1000100622.html","15":"每满129元，可减10元现金","pid":"236319400_10","st":"1538323200","customtag":"{}","ori":"1"}]}]})
             promotionContent = promotionContent.substring(promotionContent.indexOf("(") + 1, promotionContent.length() - 1);
             // {"errcode":"0","errmsg":"","data":[{"pis":[{"15":"每满129元，可减10元现金","d":"1539673572","ori":"1","st":"1538323200","adurl":"https://mall.jd.com/index-1000100622.html","pid":"236319400_10","subextinfo":"{\"extType\":2,\"needMoney\":\"129\",\"rewardMoney\":\"10\",\"subExtType\":9,\"subRuleList\":[]}","customtag":"{}"},{"19":"满2件，总价打8折；满3件，总价打7折","d":"1539673553","ori":"1","st":"1539014400","adurl":"http://sale.jd.com/act/BpSkJQaq657MCIiF.html","pid":"237107540_10","subextinfo":"{\"extType\":15,\"subExtType\":23,\"subRuleList\":[{\"needNum\":\"2\",\"rebate\":\"8\",\"subRuleList\":[]},{\"needNum\":\"3\",\"rebate\":\"7\",\"subRuleList\":[]}]}","customtag":"{}"}],"id":"2384709"}]}
             GoodsPromotionResult goodsPromotionResult = JSON.parseObject(promotionContent, GoodsPromotionResult.class);
-            if (!"0".equals(goodsPromotionResult.getErrcode())) {
-                return null;
-            }
+            //if (!"0".equals(goodsPromotionResult.getErrcode())) {
+            //    return null;
+            //}
             List<GoodsPromotionResult.PromotionInfo> pis = goodsPromotionResult.getData().get(0).getPis();
-            if (CollectionUtils.isEmpty(pis)) {
-                return null;
-            }
+            //if (CollectionUtils.isEmpty(pis)) {
+            //    return null;
+            //}
             List<JdGoodsPromotion> jdGoodsPromotions = new ArrayList<>();
             pis.forEach(pi -> {
                 GoodsPromotionResult.Subextinfo si = JSON.parseObject(pi.getSubextinfo(), GoodsPromotionResult.Subextinfo.class);
@@ -233,18 +210,12 @@ public class JdCrawler {
     public List<JdGoodsCoupon> processGoodsCoupon(String platform, String cid, String skuid, String popId) {
         try {
             String goodsCouponResponse = OkHttpUtils.executeGet(String.format(COUPON_URL, platform, cid, skuid, popId), String.class);
-            if (goodsCouponResponse == null) {
-                return null;
-            }
             String couponContent = StringUtils.trimAllWhitespace(goodsCouponResponse);
-            if (StringUtils.isEmpty(couponContent)) {
-                return null;
-            }
             // {"ret":0,"msg":"success","coupons":[{"name":"仅可购买生鲜部分商品","key":"6cc3d387ee2440c6bc76671210c0d379","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":159,"roleId":14614495,"discount":50,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜部分商品","key":"fba9f5b3c3614c3199fe8a4b069f2427","timeDesc":"有效期2018-10-12至2018-10-12","hourcoupon":1,"couponType":1,"quota":259,"roleId":14614496,"discount":100,"couponstyle":0,"discountdesc":{}},{"name":"仅可购买生鲜自营肉禽冷冻部分商品","key":"17f088bf56294be3938359ae9033f55b","timeDesc":"有效期2018-10-01至2018-10-15","hourcoupon":1,"couponType":1,"quota":198,"roleId":14640168,"discount":40,"couponstyle":0,"discountdesc":{}}],"use_coupons":[],"sku_info":{"sku":"4155087","useJing":"1","useDong":"1","global":"0","jdPrice":"0","limitCouponType":[],"limitCouponDesc":""}}
             JSONObject couponContentJsonObject = JSON.parseObject(couponContent);
-            if (couponContentJsonObject.getInteger("ret") != 0) {
-                return null;
-            }
+            //if (couponContentJsonObject.getInteger("ret") != 0) {
+            //    return null;
+            //}
             couponContent = couponContentJsonObject.getString("coupons");
             // [{"couponType":1,"roleId":14614495,"quota":159,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":50,"discountdesc":{},"couponstyle":0,"key":"6cc3d387ee2440c6bc76671210c0d379","hourcoupon":1},{"couponType":1,"roleId":14614496,"quota":259,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":100,"discountdesc":{},"couponstyle":0,"key":"fba9f5b3c3614c3199fe8a4b069f2427","hourcoupon":1},{"couponType":1,"roleId":14640168,"quota":198,"name":"仅可购买生鲜自营肉禽冷冻部分商品","timeDesc":"有效期2018-10-01至2018-10-15","discount":40,"discountdesc":{},"couponstyle":0,"key":"17f088bf56294be3938359ae9033f55b","hourcoupon":1}]
             return JSON.parseArray(couponContent, JdGoodsCoupon.class);
