@@ -6,7 +6,7 @@
 
     <groupId>cn.bfay.jd</groupId>
     <artifactId>jd-spring-boot-starter</artifactId>
-    <version>1.5.8</version>
+    <version>1.6.0</version>
     <packaging>jar</packaging>
 
     <name>jd-spring-boot-starter</name>
