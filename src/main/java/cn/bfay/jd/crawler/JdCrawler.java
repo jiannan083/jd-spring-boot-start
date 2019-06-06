@@ -78,7 +78,7 @@ public class JdCrawler {
 
             return new JdGoods(skuid, skuName, category);
         } catch (Exception e) {
-            log.error("", e);
+            log.error("skuid={}", skuid, e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class JdCrawler {
             // {"spec":"","color":"","imagePath":"jfs/t25054/72/763917350/155194/f36307c6/5b7a888cN6a8bb4b5.jpg","name":"蒙牛风味发酵乳欧式炭烧焦香原味1kg","size":""}
             return JSON.parseObject(infoContent, JdGoodsBaseInfo.class);
         } catch (Exception e) {
-            log.error("", e);
+            log.error("skuid={}", skuid, e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class JdCrawler {
             List<JdGoodsPrice> jdGoodsPrices = JSON.parseArray(priceContent, JdGoodsPrice.class);
             return jdGoodsPrices.get(0);
         } catch (Exception e) {
-            log.error("", e);
+            log.error("skuid={}", skuid, e);
             return null;
         }
     }
@@ -182,7 +182,7 @@ public class JdCrawler {
             });
             return jdGoodsPromotions;
         } catch (Exception e) {
-            log.error("", e);
+            log.error("skuid={}", skuid, e);
             return null;
         }
     }
@@ -220,7 +220,7 @@ public class JdCrawler {
             // [{"couponType":1,"roleId":14614495,"quota":159,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":50,"discountdesc":{},"couponstyle":0,"key":"6cc3d387ee2440c6bc76671210c0d379","hourcoupon":1},{"couponType":1,"roleId":14614496,"quota":259,"name":"仅可购买生鲜部分商品","timeDesc":"有效期2018-10-12至2018-10-12","discount":100,"discountdesc":{},"couponstyle":0,"key":"fba9f5b3c3614c3199fe8a4b069f2427","hourcoupon":1},{"couponType":1,"roleId":14640168,"quota":198,"name":"仅可购买生鲜自营肉禽冷冻部分商品","timeDesc":"有效期2018-10-01至2018-10-15","discount":40,"discountdesc":{},"couponstyle":0,"key":"17f088bf56294be3938359ae9033f55b","hourcoupon":1}]
             return JSON.parseArray(couponContent, JdGoodsCoupon.class);
         } catch (Exception e) {
-            log.error("", e);
+            log.error("skuid={}", skuid, e);
             return null;
         }
     }
